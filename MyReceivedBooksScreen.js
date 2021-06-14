@@ -9,7 +9,7 @@ export default class MyReceivedBooksScreen extends Component{
   constructor(){
     super()
     this.state = {
-      userId  : firebase.auth().currentUser.email,
+      userID : firebase.auth().currentUser.email,
       receivedBooksList : []
     }
   this.requestRef= null
@@ -17,7 +17,7 @@ export default class MyReceivedBooksScreen extends Component{
 
   getReceivedBooksList =()=>{
     this.requestRef = db.collection("requested_books")
-    .where('user_id','==',this.state.userId)
+    .where('user_id','==',this.state.userID)
     .where("book_status", '==','recieved')
     .onSnapshot((snapshot)=>{
       var receivedBooksList = snapshot.docs.map((doc) => doc.data())
@@ -38,11 +38,11 @@ export default class MyReceivedBooksScreen extends Component{
   keyExtractor = (item, index) => index.toString()
 
   renderItem = ( {item, i} ) =>{
-    console.log(item.book_name);
+    console.log(item.book_Name);
     return (
       <ListItem
         key={i}
-        title={item.book_name}
+        title={item.book_Name}
         subtitle={item.bookStatus}
         titleStyle={{ color: 'black', fontWeight: 'bold' }}
         bottomDivider
